@@ -90,7 +90,7 @@
               <div class="product-quantity">
                 Quantity: 1
               </div>
-              <button class="buy-again-button button-primary">
+              <button class="js-buy-again-button buy-again-button button-primary">
                 <img class="buy-again-icon" src="images/icons/buy-again.png">
                 <span class="buy-again-message">Buy it again</span>
               </button>
@@ -186,5 +186,9 @@
         </div>
       </div>
     </div>
+    <script type="module">
+      import { UUID } from "https://unpkg.com/uuidjs@^5";
+      const uuid = UUID.generate();
+    </script>
   </body>
 </html>

@@ -72,22 +72,32 @@ export function renderPaymentSummary() {
   document.querySelector('.js-place-order')
     .addEventListener('click', async () => {
       try {
-        const response =
-          await fetch('https://supersimplebackend.dev/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              cart: cart
-            })
+        // Send the cart to the backend
+        const response = await fetch('https://supersimplebackend.dev/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            cart: cart // Ensure 'cart' is defined in your script
           })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to place the order. Please try again.');
+        }
+
+        // Parse the response to get the order
         const order = await response.json();
+
+        // Add the order to your local system (optional)
         addOrder(order);
+
+        // Display confirmation or redirect to orders page
+        window.location.href = 'orders.html'; // Redirect to order history or confirmation page
+      } catch (error) {
+        console.error('Unexpected error:', error);
       }
-      catch (error) {
-        console.log('Unexpected error. Try again later.')
-      }
-      window.location.href = 'orders.html';
     });
+
 }
